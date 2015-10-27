@@ -21,7 +21,7 @@ class Printer
         switch ($app->request->getContentType()) {
             case 'application/json':
                 $app->response()->header('Content-Type', 'application/json');
-                $body = escapeshellarg(json_decode($app->request->getBody())->data);
+                $body = json_decode($app->request->getBody())->data;
                 break;
 
             default:
