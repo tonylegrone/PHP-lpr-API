@@ -1,6 +1,7 @@
 {
     "require": {
         "slim/slim": "~2.6",
-        "palanik/corsslim": "0.0.5.*"
+        "palanik/corsslim": "0.0.5.*",
+        "vlucas/phpdotenv": "~2.0"
     }
 }
