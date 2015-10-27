@@ -4,9 +4,9 @@ class Printer
 {
     public function __construct(\Slim\Slim $app, $queue)
     {
+        $this->config = $app->config('printer');
         $this->app = $app;
         $this->queue = escapeshellarg($queue);
-        $this->print_options = getenv('PRINT_OPTIONS');
     }
 
     public static function printJob($queue) {
@@ -29,6 +29,13 @@ class Printer
                 return;
                 break;
         }
-        exec("echo '$body' | lpr -P $this->queue $this->print_options");
+
+        if ($this->config['flush_jobs']) {
+            // To keep duplicate jobs from stacking in case the printer
+            // connection gets lost, flush all jobs before sending a new one.
+            exec("lprm -U {$this->config['username']} -P $this->queue -");
+        }
+
+        exec("echo '$body' | lpr -P $this->queue {$this->config['options']}");
     }
 }

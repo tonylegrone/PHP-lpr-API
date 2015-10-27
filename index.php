@@ -12,6 +12,9 @@ $app->add(new \CorsSlim\CorsSlim([
     'allowMethods' => 'POST',
 ]));
 
+$config = include('config.php');
+$app->config($config);
+
 // Legacy endpoint (deprecated).
 $app->post('/printers/:queue/jobs', function($queue) {
     \Printer::printJob($queue);
