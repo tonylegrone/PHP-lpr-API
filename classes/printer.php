@@ -5,7 +5,7 @@ class Printer
     public function __construct(\Slim\Slim $app, $queue)
     {
         $this->app = $app;
-        $this->queue = $queue;
+        $this->queue = escapeshellarg($queue);
     }
 
     public static function printJob($queue) {
@@ -20,7 +20,7 @@ class Printer
         switch ($app->request->getContentType()) {
             case 'application/json':
                 $app->response()->header('Content-Type', 'application/json');
-                $body = json_decode($app->request->getBody());
+                $body = escapeshellarg(json_decode($app->request->getBody())->data);
                 break;
 
             default:
@@ -28,6 +28,6 @@ class Printer
                 return;
                 break;
         }
-        exec("echo '$body->data' | lpr -P $this->queue");
+        exec("echo '$body' | lpr -P $this->queue");
     }
 }
