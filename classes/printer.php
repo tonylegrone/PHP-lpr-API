@@ -6,6 +6,7 @@ class Printer
     {
         $this->app = $app;
         $this->queue = escapeshellarg($queue);
+        $this->print_options = getenv('PRINT_OPTIONS');
     }
 
     public static function printJob($queue) {
@@ -28,6 +29,6 @@ class Printer
                 return;
                 break;
         }
-        exec("echo '$body' | lpr -P $this->queue");
+        exec("echo '$body' | lpr -P $this->queue $this->print_options");
     }
 }

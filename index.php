@@ -3,6 +3,9 @@
 require 'vendor/autoload.php';
 require 'classes/printer.php';
 
+$dotenv = new Dotenv\Dotenv(__DIR__);
+$dotenv->load();
+
 $app = new \Slim\Slim();
 $app->add(new \CorsSlim\CorsSlim([
     'origin' => '*',
