@@ -36,6 +36,10 @@ class Printer
             exec("lprm -U {$this->config['username']} -P $this->queue -");
         }
 
-        exec("echo '$body' | lpr -P $this->queue {$this->config['options']}");
+        // To prevent injection, strip out any insance of the closing heredoc.
+        $body = preg_replace('/\n\b(STDIN)\b\n/', '', $body);
+        // Passing the $body into the standard input with a heredoc keeps us
+        // from dealing with escaping quotes and other characters.
+        exec("lpr -P $this->queue {$this->config['options']} <<'STDIN'\n$body\nSTDIN");
     }
 }
