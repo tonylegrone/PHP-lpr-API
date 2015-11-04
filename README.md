@@ -1,4 +1,6 @@
 # Instructions
 
 1. Run `composer install`
-2. Enjoy printing
+2. Set up your .env file
+3. ????
+4. PROFIT
