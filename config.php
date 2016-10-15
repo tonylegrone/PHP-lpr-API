@@ -1,6 +1,7 @@
 <?php
 
 return [
+  'temp_path' => './temp/',
   'printer' => [
     'options' => getenv('PRINT_OPTIONS'),
     /**
