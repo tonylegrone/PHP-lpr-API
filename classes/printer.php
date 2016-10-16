@@ -7,6 +7,7 @@ class Printer
         $this->config = $app->config('printer');
         $this->app = $app;
         $this->queue = escapeshellarg($queue);
+        $this->printCmd = "lpr -P $this->queue {$this->config['options']}";
     }
 
     public static function printJob($queue) {
@@ -21,7 +22,7 @@ class Printer
         switch ($app->request->getContentType()) {
             case 'application/json':
                 $app->response()->header('Content-Type', 'application/json');
-                $body = json_decode($app->request->getBody())->data;
+                $body = json_decode($app->request->getBody());
                 break;
 
             default:
@@ -36,10 +37,35 @@ class Printer
             exec("lprm -U {$this->config['username']} -P $this->queue -");
         }
 
-        // To prevent injection, strip out any insance of the closing heredoc.
-        $body = preg_replace('/\n\b(STDIN)\b\n/', '', $body);
-        // Passing the $body into the standard input with a heredoc keeps us
-        // from dealing with escaping quotes and other characters.
-        exec("lpr -P $this->queue {$this->config['options']} <<'STDIN'\n$body\nSTDIN");
+        if (isset($body->base64) && $body->base64 === true) {
+            // Handle base64 encoded print data.
+            try {
+                // Save the file.
+                $file = $app->config('temp_path') . time();
+                file_put_contents($file, base64_decode($body->data));
+                // Print the file.
+                exec("$this->printCmd $file");
+                // Delete the file.
+                unlink($file);
+            }
+            catch (\ErrorException $e) {
+                return $e->getMessage();
+            }
+        }
+        else {
+            // Send raw data straight to the printer.
+            try {
+                // To prevent injection, strip out any insance of the
+                // closing heredoc.
+                $body->data = preg_replace('/\n\b(STDIN)\b\n/', '', $body->data);
+                // Passing the $body->data into the standard input with
+                // a heredoc keeps us from dealing with escaping quotes and
+                // other characters.
+                exec("$this->printCmd <<'STDIN'\n$body->data\nSTDIN");
+            }
+            catch (\ErrorException $e) {
+                return $e->getMessage();
+            }
+        }
     }
 }
