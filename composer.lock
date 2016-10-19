@@ -1,27 +1,28 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ba479c3a2bbb8779e1e0465502f949fe",
+    "hash": "1370009dfbff3bc39b4dc62e9179d89c",
+    "content-hash": "512b484ddab553637a170aef12eceb6a",
     "packages": [
         {
             "name": "palanik/corsslim",
-            "version": "v0.0.5",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/palanik/CorsSlim.git",
-                "reference": "e315799762352028e24735f14bebdf63f9135cc8"
+                "reference": "ebd2bca1fcf4711a69db43f65bb63d10c7016030"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/palanik/CorsSlim/zipball/e315799762352028e24735f14bebdf63f9135cc8",
-                "reference": "e315799762352028e24735f14bebdf63f9135cc8",
+                "url": "https://api.github.com/repos/palanik/CorsSlim/zipball/ebd2bca1fcf4711a69db43f65bb63d10c7016030",
+                "reference": "ebd2bca1fcf4711a69db43f65bb63d10c7016030",
                 "shasum": ""
             },
             "require": {
-                "slim/slim": ">=2.4.0"
+                "slim/slim": ">=2.4.0 <3.0"
             },
             "type": "library",
             "autoload": {
@@ -48,7 +49,7 @@
                 "slim",
                 "slimphp"
             ],
-            "time": "2015-04-29 01:21:37"
+            "time": "2015-12-16 23:57:06"
         },
         {
             "name": "slim/slim",
@@ -98,25 +99,30 @@
         },
         {
             "name": "vlucas/phpdotenv",
-            "version": "v2.0.1",
+            "version": "v2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/phpdotenv.git",
-                "reference": "91064290f5b53a09bdff1b939d7f69fb0e7531b5"
+                "reference": "3cc116adbe4b11be5ec557bf1d24dc5e3a21d18c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/91064290f5b53a09bdff1b939d7f69fb0e7531b5",
-                "reference": "91064290f5b53a09bdff1b939d7f69fb0e7531b5",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/3cc116adbe4b11be5ec557bf1d24dc5e3a21d18c",
+                "reference": "3cc116adbe4b11be5ec557bf1d24dc5e3a21d18c",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.2"
+                "php": ">=5.3.9"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.0"
+                "phpunit/phpunit": "^4.8 || ^5.0"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Dotenv\\": "src/"
@@ -124,7 +130,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD"
+                "BSD-3-Clause-Attribution"
             ],
             "authors": [
                 {
@@ -134,13 +140,12 @@
                 }
             ],
             "description": "Loads environment variables from `.env` to `getenv()`, `$_ENV` and `$_SERVER` automagically.",
-            "homepage": "http://github.com/vlucas/phpdotenv",
             "keywords": [
                 "dotenv",
                 "env",
                 "environment"
             ],
-            "time": "2015-05-30 16:15:01"
+            "time": "2016-09-01 10:05:43"
         }
     ],
     "packages-dev": [],
